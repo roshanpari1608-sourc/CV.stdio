@@ -209,8 +209,8 @@ export default function App() {
         </section>
 
         {/* RIGHT COLUMN: WORKSPACE LAYOUT (TABS: PREVIEW & AI ASSISTANT) */}
-        <section className={`lg:col-span-7 space-y-5 lg:max-h-[calc(100vh-130px)] lg:overflow-y-auto pb-10 px-0.5 print:max-h-none print:pb-0 print:col-span-12 ${
-          mobileActiveTab === "preview" ? "block w-full" : "hidden lg:block"
+        <section className={`lg:col-span-7 space-y-5 lg:max-h-[calc(100vh-130px)] lg:overflow-y-auto pb-10 px-0.5 print:max-h-none print:pb-0 print:col-span-12 print:block ${
+          mobileActiveTab === "preview" ? "block w-full print:block" : "hidden lg:block print:block"
         }`}>
           
           {/* Workspace Tab Bar Selector */}

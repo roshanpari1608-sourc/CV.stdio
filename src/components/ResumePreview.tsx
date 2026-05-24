@@ -57,30 +57,56 @@ export default function ResumePreview({ cvData, settings, onUpdateSettings }: Re
     const element = document.getElementById("resume-printable-sheet");
     if (!element) return;
 
+    // Save current inline styles to restore them perfectly after capture
+    const originalWidth = element.style.width;
+    const originalMinWidth = element.style.minWidth;
+    const originalMaxWidth = element.style.maxWidth;
+    const originalTransform = element.style.transform;
+    const originalTransformOrigin = element.style.transformOrigin;
+
     try {
       setIsGeneratingPdf(true);
 
+      // Force standard A4 layout width (794px represents ~210mm at 96 DPI)
+      // to ensure uniform text rendering, grid line-breaks, and margin sizes on all screens
+      element.style.width = "794px";
+      element.style.minWidth = "794px";
+      element.style.maxWidth = "794px";
+      element.style.transform = "none";
+      element.style.transformOrigin = "top left";
+
       const canvas = await html2canvas(element, {
-        scale: 2.5, // Crisp resolution for text and layout details
+        scale: 2.2, // Crisp high-definition scale optimized for text legibility
         useCORS: true,
-        allowTaint: true,
+        allowTaint: false, // Critical: set to false so toDataURL never throws SecurityError on cross-origin visuals
         backgroundColor: "#ffffff",
         logging: false,
+        width: 794,
+        height: element.scrollHeight,
       });
 
-      const imgData = canvas.toDataURL("image/jpeg", 0.98);
+      // Instantly restore the original responsive styling
+      element.style.width = originalWidth;
+      element.style.minWidth = originalMinWidth;
+      element.style.maxWidth = originalMaxWidth;
+      element.style.transform = originalTransform;
+      element.style.transformOrigin = originalTransformOrigin;
+
+      const imgData = canvas.toDataURL("image/jpeg", 0.95);
       const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 210;
-      const pageHeight = 297;
+      const imgWidth = 210; // A4 standard width in mm
+      const pageHeight = 297; // A4 standard height in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       
       let heightLeft = imgHeight;
       let position = 0;
 
+      // Draw standard first page
       pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
 
-      while (heightLeft >= 0) {
+      // Handle pagination seamlessly
+      while (heightLeft > 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
         pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
@@ -93,6 +119,18 @@ export default function ResumePreview({ cvData, settings, onUpdateSettings }: Re
       pdf.save(pdfName);
     } catch (err) {
       console.error("PDF generation failed:", err);
+      
+      // Ensure element styles are restored in case of any system/network interruption
+      try {
+        const fallbackElement = document.getElementById("resume-printable-sheet");
+        if (fallbackElement) {
+          fallbackElement.style.width = "";
+          fallbackElement.style.minWidth = "";
+          fallbackElement.style.maxWidth = "";
+          fallbackElement.style.transform = "";
+          fallbackElement.style.transformOrigin = "";
+        }
+      } catch (_) {}
     } finally {
       setIsGeneratingPdf(false);
     }

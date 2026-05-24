@@ -535,7 +535,16 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                 <p className="text-xs text-slate-400">Name, contact numbers, LinkedIn & Portfolio profiles</p>
               </div>
             </div>
-            {activeTab === "personal" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "personal" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "personal" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "personal" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -738,6 +747,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                     />
                   </div>
                 </div>
+
+                {/* Save Section Button */}
+                <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                  <button
+                    id="save-personal-btn"
+                    type="button"
+                    onClick={() => toggleSection("personal")}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Save Section</span>
+                  </button>
+                </div>
+
               </div>
             </motion.div>
             )}
@@ -761,7 +784,16 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                 <p className="text-xs text-slate-400">Brief narrative showcasing your target value or drive</p>
               </div>
             </div>
-            {activeTab === "summary" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "summary" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "summary" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "summary" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -797,6 +829,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                   <p className="text-xs text-slate-400">
                     💡 <span className="font-semibold">Student Tip:</span> If you don't have experience, call it your "Career Objective" and highlight high curiosity, course achievements, or project leadership.
                   </p>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-summary-btn"
+                      type="button"
+                      onClick={() => toggleSection("summary")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -815,12 +861,21 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               <span className="p-2 rounded-lg bg-orange-50 text-orange-600 block">
                 <GraduationCap className="w-4.5 h-4.5" />
               </span>
-              <div className="text-left">
-                <h4 className="text-sm font-semibold">Education History</h4>
-                <p className="text-xs text-slate-400">Universities, majors, GPAs, coursework and honors</p>
+              <div className="text-left font-sans">
+                <h4 className="text-sm font-extrabold text-indigo-950 tracking-tight">Education History</h4>
+                <p className="text-xs text-indigo-650/80 font-medium">Universities, majors, GPAs, coursework and honors</p>
               </div>
             </div>
-            {activeTab === "education" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "education" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "education" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "education" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -834,85 +889,92 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               >
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-4">
                   {cvData.education.map((edu, idx) => (
-                    <div id={`edu-card-${edu.id}`} key={edu.id} className="p-4 bg-white border border-slate-100 rounded-xl relative space-y-3 shadow-xs">
+                    <div 
+                      id={`edu-card-${edu.id}`} 
+                      key={edu.id} 
+                      className="p-5 bg-black text-white border border-slate-800 rounded-xl relative space-y-4 shadow-md transition-all duration-200"
+                      style={{ backgroundColor: "#000000" }}
+                    >
                       <button
                         id={`delete-edu-${edu.id}`}
                         type="button"
                         onClick={() => removeEducation(edu.id)}
-                        className="absolute top-4 right-4 text-slate-350 hover:text-red-500 p-1 transition"
+                        className="absolute top-4 right-4 text-slate-400 hover:text-red-400 p-1 transition"
                         title="Delete Education Group"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
 
-                      <div className="text-xs font-semibold text-indigo-600 uppercase tracking-wide">
+                      <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest font-sans">
                         Education #{idx + 1}
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">School / University</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">School / University</label>
                           <input
                             id={`input-school-${edu.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="University of Science"
                             value={edu.school}
                             onChange={(e) => updateEducation(edu.id, "school", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Location (City, ST)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Location (City, ST)</label>
                           <input
                             id={`input-edu-location-${edu.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="Boston, MA"
                             value={edu.location}
                             onChange={(e) => updateEducation(edu.id, "location", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Degree Program</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Degree Program</label>
                           <input
                             id={`input-degree-${edu.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="Bachelor of Science"
                             value={edu.degree}
                             onChange={(e) => updateEducation(edu.id, "degree", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Major / Field of Study</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Major / Field of Study</label>
                           <input
                             id={`input-field-${edu.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="Computer Architecture"
                             value={edu.fieldOfStudy}
                             onChange={(e) => updateEducation(edu.id, "fieldOfStudy", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Start Date</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Start Date</label>
                           <input
                             id={`input-edu-start-${edu.id}`}
                             type="month"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm text-white border border-neutral-800 rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
+                            style={{ backgroundColor: "#000000" }}
                             value={edu.startDate}
                             onChange={(e) => updateEducation(edu.id, "startDate", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">
                             {edu.current ? "Expected Graduation" : "End Date"}
                           </label>
                           <input
                             id={`input-edu-end-${edu.id}`}
                             type="month"
                             disabled={edu.current}
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-100 disabled:opacity-50"
+                            className="w-full px-3 py-2 text-sm text-white border border-neutral-800 rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition disabled:bg-neutral-950 disabled:opacity-40"
+                            style={{ backgroundColor: "#000000" }}
                             value={edu.endDate}
                             onChange={(e) => updateEducation(edu.id, "endDate", e.target.value)}
                           />
@@ -922,21 +984,21 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                           <input
                             id={`input-edu-current-${edu.id}`}
                             type="checkbox"
-                            className="rounded text-indigo-600 focus:ring-indigo-500"
+                            className="rounded bg-neutral-900 border-neutral-800 text-indigo-500 focus:ring-indigo-500"
                             checked={edu.current}
                             onChange={(e) => updateEducation(edu.id, "current", e.target.checked)}
                           />
-                          <label htmlFor={`input-edu-current-${edu.id}`} className="text-xs text-slate-500 font-medium">
+                          <label htmlFor={`input-edu-current-${edu.id}`} className="text-xs text-slate-300 font-medium cursor-pointer select-none">
                             I am currently enrolled/studying here
                           </label>
                         </div>
 
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">GPA (Highly recommended for students!)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">GPA (Highly recommended for students!)</label>
                           <input
                             id={`input-gpa-${edu.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="3.8 / 4.0 or Magna Cum Laude"
                             value={edu.gpa}
                             onChange={(e) => updateEducation(edu.id, "gpa", e.target.value)}
@@ -944,11 +1006,11 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         </div>
 
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-medium text-slate-450 mb-0.5">Relevant Coursework (Separated by commas)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Relevant Coursework (Separated by commas)</label>
                           <input
                             id={`input-coursework-${edu.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="Data Structures, Algorithms, Linear Algebra"
                             value={edu.relevantCoursework}
                             onChange={(e) => updateEducation(edu.id, "relevantCoursework", e.target.value)}
@@ -956,11 +1018,11 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         </div>
 
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-medium text-slate-450 mb-0.5">Honors/Activities (Separated by commas)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Honors/Activities (Separated by commas)</label>
                           <input
                             id={`input-honors-${edu.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="Dean's List, CS Society President, Hackathon Winner"
                             value={edu.honors}
                             onChange={(e) => updateEducation(edu.id, "honors", e.target.value)}
@@ -979,6 +1041,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                     <Plus className="w-4 h-4" />
                     Insert Another School/Education Block
                   </button>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-education-btn"
+                      type="button"
+                      onClick={() => toggleSection("education")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -997,12 +1073,21 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               <span className="p-2 rounded-lg bg-emerald-50 text-emerald-600 block">
                 <Briefcase className="w-4.5 h-4.5" />
               </span>
-              <div className="text-left">
-                <h4 className="text-sm font-semibold">Work Experience</h4>
-                <p className="text-xs text-slate-400">Companies, job roles, dates, and bullet achievements</p>
+              <div className="text-left font-sans">
+                <h4 className="text-sm font-extrabold text-indigo-950 tracking-tight">Work Experience</h4>
+                <p className="text-xs text-indigo-650/80 font-medium">Companies, job roles, dates, and bullet achievements</p>
               </div>
             </div>
-            {activeTab === "experience" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "experience" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "experience" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "experience" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -1016,50 +1101,55 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               >
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-4">
                   {cvData.workExperience.map((work, idx) => (
-                    <div id={`work-card-${work.id}`} key={work.id} className="p-4 bg-white border border-slate-100 rounded-xl relative space-y-4 shadow-xs">
+                    <div 
+                      id={`work-card-${work.id}`} 
+                      key={work.id} 
+                      className="p-5 bg-black text-white border border-slate-800 rounded-xl relative space-y-4 shadow-md transition-all duration-200"
+                      style={{ backgroundColor: "#000000" }}
+                    >
                       <button
                         id={`delete-work-${work.id}`}
                         type="button"
                         onClick={() => removeWorkExperience(work.id)}
-                        className="absolute top-4 right-4 text-slate-355 hover:text-red-500 p-1 transition"
+                        className="absolute top-4 right-4 text-slate-400 hover:text-red-400 p-1 transition"
                         title="Delete Work Experience block"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
 
-                      <div className="text-xs font-semibold text-emerald-600 uppercase tracking-wide">
+                      <div className="text-xs font-bold text-emerald-400 uppercase tracking-widest font-sans">
                         Job/Experience #{idx + 1}
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Company Name</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Company Name</label>
                           <input
                             id={`input-company-${work.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-emerald-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="Inbound Horizons Co."
                             value={work.company}
                             onChange={(e) => updateWorkExperience(work.id, "company", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Job Title / Role</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Job Title / Role</label>
                           <input
                             id={`input-position-${work.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-emerald-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="Growth Marketing Intern"
                             value={work.position}
                             onChange={(e) => updateWorkExperience(work.id, "position", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Location (City, ST)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Location (City, ST)</label>
                           <input
                             id={`input-work-location-${work.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-emerald-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="San Francisco, CA"
                             value={work.location}
                             onChange={(e) => updateWorkExperience(work.id, "location", e.target.value)}
@@ -1068,24 +1158,26 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         <div />
 
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Start Date</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Start Date</label>
                           <input
                             id={`input-work-start-${work.id}`}
                             type="month"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-emerald-500"
+                            className="w-full px-3 py-2 text-sm text-white border border-neutral-800 rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
+                            style={{ backgroundColor: "#000000" }}
                             value={work.startDate}
                             onChange={(e) => updateWorkExperience(work.id, "startDate", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">
                             {work.current ? "Present Date" : "End Date"}
                           </label>
                           <input
                             id={`input-work-end-${work.id}`}
                             type="month"
                             disabled={work.current}
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-emerald-500 disabled:bg-slate-100 disabled:opacity-50"
+                            className="w-full px-3 py-2 text-sm text-white border border-neutral-800 rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition disabled:bg-neutral-955 disabled:opacity-40"
+                            style={{ backgroundColor: "#000000" }}
                             value={work.endDate}
                             onChange={(e) => updateWorkExperience(work.id, "endDate", e.target.value)}
                           />
@@ -1095,20 +1187,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                           <input
                             id={`input-work-current-${work.id}`}
                             type="checkbox"
-                            className="rounded text-emerald-600 focus:ring-emerald-500"
+                            className="rounded bg-neutral-900 border-neutral-800 text-emerald-500 focus:ring-emerald-500"
                             checked={work.current}
                             onChange={(e) => updateWorkExperience(work.id, "current", e.target.checked)}
                           />
-                          <label htmlFor={`input-work-current-${work.id}`} className="text-xs text-slate-500 font-medium">
+                          <label htmlFor={`input-work-current-${work.id}`} className="text-xs text-slate-300 font-medium cursor-pointer select-none">
                             I currently work in this position
                           </label>
                         </div>
                       </div>
 
                       {/* Experience Bullets */}
-                      <div className="space-y-2 border-t border-slate-100 pt-3">
+                      <div className="space-y-2 border-t border-slate-800 pt-3">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-semibold text-slate-500">Key achievements & roles:</span>
+                          <span className="text-xs font-semibold text-slate-300">Key achievements & roles:</span>
                           <span className="text-[10px] text-slate-400 flex items-center gap-1">
                             <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
                             Pro Tip: Double tap Sparkle icons to polish descriptions with AI
@@ -1126,7 +1218,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                                   <textarea
                                     id={`input-bullet-${bulletKey}`}
                                     rows={2}
-                                    className="w-full px-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500 pr-10"
+                                    className="w-full px-3 py-1.5 text-xs bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-1 focus:ring-indigo-500 pr-10"
                                     placeholder="Write a metric/result or action detail..."
                                     value={bullet}
                                     onChange={(e) => updateWorkBullet(work.id, bIdx, e.target.value)}
@@ -1136,7 +1228,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                                     type="button"
                                     disabled={isPolishing}
                                     onClick={() => polishBulletPoint(work.id, bIdx, false)}
-                                    className={`absolute right-2 top-2 p-1.5 rounded bg-amber-50 hover:bg-amber-100 text-amber-600 transition flex items-center justify-center ${
+                                    className={`absolute right-2 top-2 p-1.5 rounded bg-neutral-800 hover:bg-neutral-700 text-amber-500 transition flex items-center justify-center ${
                                       isPolishing ? "animate-pulse" : ""
                                     }`}
                                     title="Polish with AI Sparkles"
@@ -1152,7 +1244,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                                   id={`delete-bullet-${bulletKey}`}
                                   type="button"
                                   onClick={() => removeWorkBullet(work.id, bIdx)}
-                                  className="text-slate-350 hover:text-red-500 p-2 transition self-start"
+                                  className="text-slate-400 hover:text-red-400 p-2 transition self-start"
                                   title="Remove bullet line"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -1165,7 +1257,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                           id={`add-bullet-${work.id}`}
                           type="button"
                           onClick={() => addWorkBullet(work.id)}
-                          className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 hover:text-emerald-700 mt-2 transition"
+                          className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-400 hover:text-emerald-350 mt-2 transition"
                         >
                           <Plus className="w-3.5 h-3.5" /> Add Achievement Bullet
                         </button>
@@ -1182,6 +1274,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                     <Plus className="w-4 h-4" />
                     Insert Another Work Experience
                   </button>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-experience-btn"
+                      type="button"
+                      onClick={() => toggleSection("experience")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -1200,12 +1306,21 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               <span className="p-2 rounded-lg bg-teal-50 text-teal-600 block">
                 <Code className="w-4.5 h-4.5" />
               </span>
-              <div className="text-left">
-                <h4 className="text-sm font-semibold">Key Projects</h4>
-                <p className="text-xs text-slate-400">(Crucial for student CVs!) Academic/individual assignments & apps</p>
+              <div className="text-left font-sans">
+                <h4 className="text-sm font-extrabold text-indigo-950 tracking-tight">Key Projects</h4>
+                <p className="text-xs text-indigo-650/80 font-medium">(Crucial for student CVs!) Academic/individual assignments & apps</p>
               </div>
             </div>
-            {activeTab === "projects" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "projects" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "projects" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "projects" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -1219,82 +1334,89 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               >
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-4">
                   {cvData.projects.map((proj, idx) => (
-                    <div id={`proj-card-${proj.id}`} key={proj.id} className="p-4 bg-white border border-slate-100 rounded-xl relative space-y-4 shadow-xs">
+                    <div 
+                      id={`proj-card-${proj.id}`} 
+                      key={proj.id} 
+                      className="p-5 bg-black text-white border border-slate-800 rounded-xl relative space-y-4 shadow-md transition-all duration-200"
+                      style={{ backgroundColor: "#000000" }}
+                    >
                       <button
                         id={`delete-proj-${proj.id}`}
                         type="button"
                         onClick={() => removeProject(proj.id)}
-                        className="absolute top-4 right-4 text-slate-350 hover:text-red-500 p-1 transition"
+                        className="absolute top-4 right-4 text-slate-400 hover:text-red-400 p-1 transition"
                         title="Delete Project Block"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
 
-                      <div className="text-xs font-semibold text-teal-600 uppercase tracking-wide">
+                      <div className="text-xs font-bold text-teal-400 uppercase tracking-widest font-sans">
                         Project #{idx + 1}
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Project Name</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Project Name</label>
                           <input
                             id={`input-proj-name-${proj.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-teal-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="E.g. StudyHub Collaboration Tool"
                             value={proj.name}
                             onChange={(e) => updateProject(proj.id, "name", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Your Role / Contribution</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Your Role / Contribution</label>
                           <input
                             id={`input-proj-role-${proj.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-teal-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="E.g. Lead Frontend Architect"
                             value={proj.role}
                             onChange={(e) => updateProject(proj.id, "role", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Project URL (GitHub / Live Link)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Project URL (GitHub / Live Link)</label>
                           <input
                             id={`input-proj-url-${proj.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-teal-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="https://github.com/..."
                             value={proj.url}
                             onChange={(e) => updateProject(proj.id, "url", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Technologies Used (Commas separated)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Technologies Used (Commas separated)</label>
                           <input
                             id={`input-proj-tech-${proj.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-teal-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="React, TypeScript, Tailwind, Node"
                             value={proj.technologies}
                             onChange={(e) => updateProject(proj.id, "technologies", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">Start Date</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Start Date</label>
                           <input
                             id={`input-proj-start-${proj.id}`}
                             type="month"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-teal-500"
+                            className="w-full px-3 py-2 text-sm text-white border border-neutral-800 rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
+                            style={{ backgroundColor: "#000000" }}
                             value={proj.startDate}
                             onChange={(e) => updateProject(proj.id, "startDate", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-slate-400 mb-0.5">End Date</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">End Date</label>
                           <input
                             id={`input-proj-end-${proj.id}`}
                             type="month"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-teal-500"
+                            className="w-full px-3 py-2 text-sm text-white border border-neutral-800 rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
+                            style={{ backgroundColor: "#000000" }}
                             value={proj.endDate}
                             onChange={(e) => updateProject(proj.id, "endDate", e.target.value)}
                           />
@@ -1302,9 +1424,9 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                       </div>
 
                       {/* Project Bullets */}
-                      <div className="space-y-2 border-t border-slate-100 pt-3">
+                      <div className="space-y-2 border-t border-slate-800 pt-3">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-semibold text-slate-500">Key achievements/milestones:</span>
+                          <span className="text-xs font-semibold text-slate-300">Key achievements/milestones:</span>
                         </div>
                         <div className="space-y-2">
                           {proj.bullets.map((bullet, bIdx) => {
@@ -1318,7 +1440,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                                   <textarea
                                     id={`input-bullet-${bulletKey}`}
                                     rows={2}
-                                    className="w-full px-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500 pr-10"
+                                    className="w-full px-3 py-1.5 text-xs bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-1 focus:ring-indigo-500 pr-10"
                                     placeholder="Explain how you built it, what metrics/benchmarks you cleared..."
                                     value={bullet}
                                     onChange={(e) => updateProjectBullet(proj.id, bIdx, e.target.value)}
@@ -1328,7 +1450,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                                     type="button"
                                     disabled={isPolishing}
                                     onClick={() => polishBulletPoint(proj.id, bIdx, true)}
-                                    className={`absolute right-2 top-2 p-1.5 rounded bg-amber-50 hover:bg-amber-100 text-amber-600 transition flex items-center justify-center ${
+                                    className={`absolute right-2 top-2 p-1.5 rounded bg-neutral-800 hover:bg-neutral-700 text-amber-500 transition flex items-center justify-center ${
                                       isPolishing ? "animate-pulse" : ""
                                     }`}
                                     title="Polish with AI Sparkles"
@@ -1344,7 +1466,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                                   id={`delete-bullet-${bulletKey}`}
                                   type="button"
                                   onClick={() => removeProjectBullet(proj.id, bIdx)}
-                                  className="text-slate-350 hover:text-red-500 p-2 transition self-start"
+                                  className="text-slate-400 hover:text-red-400 p-2 transition self-start"
                                   title="Remove bullet line"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -1357,7 +1479,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                           id={`add-bullet-${proj.id}`}
                           type="button"
                           onClick={() => addProjectBullet(proj.id)}
-                          className="flex items-center gap-1.5 text-[11px] font-medium text-teal-600 hover:text-teal-700 mt-1 transition"
+                          className="flex items-center gap-1.5 text-[11px] font-medium text-teal-400 hover:text-teal-350 mt-1 transition"
                         >
                           <Plus className="w-3.5 h-3.5" /> Add Project Bullet Point
                         </button>
@@ -1374,6 +1496,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                     <Plus className="w-4 h-4" />
                     Insert Another Project Block
                   </button>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-projects-btn"
+                      type="button"
+                      onClick={() => toggleSection("projects")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -1392,12 +1528,21 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               <span className="p-2 rounded-lg bg-pink-50 text-pink-600 block">
                 <Code className="w-4.5 h-4.5" />
               </span>
-              <div className="text-left">
-                <h4 className="text-sm font-semibold">Skills Inventory</h4>
-                <p className="text-xs text-slate-400">Technical language tags, tools, frameworks & soft skills</p>
+              <div className="text-left font-sans">
+                <h4 className="text-sm font-extrabold text-indigo-950 tracking-tight">Skills Inventory</h4>
+                <p className="text-xs text-indigo-650/80 font-medium">Technical language tags, tools, frameworks & soft skills</p>
               </div>
             </div>
-            {activeTab === "skills" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "skills" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "skills" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "skills" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -1458,6 +1603,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                     <Plus className="w-4 h-4" />
                     Insert Another Skills Category Block
                   </button>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-skills-btn"
+                      type="button"
+                      onClick={() => toggleSection("skills")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -1481,7 +1640,16 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                 <p className="text-xs text-slate-400">Foreign languages spoken & general command standard</p>
               </div>
             </div>
-            {activeTab === "languages" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "languages" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "languages" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "languages" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -1542,6 +1710,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                   >
                     <Plus className="w-3.5 h-3.5" /> Introduce Language Tag
                   </button>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-languages-btn"
+                      type="button"
+                      onClick={() => toggleSection("languages")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -1565,7 +1747,16 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                 <p className="text-xs text-slate-400">Industry qualifications, bootcamps and digital badges</p>
               </div>
             </div>
-            {activeTab === "certifications" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "certifications" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "certifications" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "certifications" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -1630,6 +1821,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                   >
                     <Plus className="w-3.5 h-3.5" /> Register Another Award / Badge
                   </button>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-certifications-btn"
+                      type="button"
+                      onClick={() => toggleSection("certifications")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -1653,7 +1858,16 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                 <p className="text-xs text-slate-400">Hackathons, competitions, leadership and volunteering</p>
               </div>
             </div>
-            {activeTab === "achievements" ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1.5 rounded-md transition duration-150 ${
+                activeTab === "achievements" 
+                  ? "bg-emerald-50 text-emerald-700 font-bold" 
+                  : "bg-slate-100 text-slate-600 font-bold hover:bg-slate-200"
+              }`}>
+                {activeTab === "achievements" ? "Editing..." : "Edit Section"}
+              </span>
+              {activeTab === "achievements" ? <ChevronUp className="w-4.5 h-4.5 text-slate-400" /> : <ChevronDown className="w-4.5 h-4.5 text-slate-400" />}
+            </div>
           </button>
 
           <AnimatePresence initial={false}>
@@ -1734,6 +1948,20 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                   >
                     <Plus className="w-3.5 h-3.5" /> Register Another Achievement / Activity
                   </button>
+
+                  {/* Save Section Button */}
+                  <div className="flex justify-end pt-3 border-t border-slate-100/80">
+                    <button
+                      id="save-achievements-btn"
+                      type="button"
+                      onClick={() => toggleSection("achievements")}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#d4ff00] hover:bg-[#cbf400] text-black text-xs font-black uppercase tracking-wider transition-all rounded shadow-xs cursor-pointer active:scale-95"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Save Section</span>
+                    </button>
+                  </div>
+
                 </div>
               </motion.div>
             )}
