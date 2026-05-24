@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+/* Import beautiful display fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,450&family=JetBrains+Mono:wght@300;400;550;600&display=swap');
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+body {
+  background-color: #0A0A0A;
+  color: #ffffff;
+}
+
+/* Slick bold selection highlighting */
+::selection {
+  background-color: #D4FF00;
+  color: #040404;
+}
+
+/* Custom scrollbars for a cleaner fit with the dark mode */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4FF00;
+}
+
+/* Animation progress-dash */
+.progress-dash {
+  stroke-dasharray: 175.92;
+  transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+/* HIGH FIDELITY PRINT STYLES - EXPORT ONLY THE A4 CANVAS */
+@media print {
+  /* Set A4 page preferences and margins */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    background: none !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide absolutely everything on the web screen */
+  header,
+  footer,
+  aside,
+  #navigation-bar,
+  #preview-settings-toolbar,
+  #switch-prefills-toolbar,
+  #ats-tailor-card,
+  #ats-audit-card,
+  #cv-form-container,
+  #role-selector-bar,
+  .print\:hidden,
+  button,
+  select,
+  input,
+  textarea {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Force our CV A4 container to occupy the absolute print canvas and remove radius/shadows */
+  #capture-pdf-target {
+    display: block !important;
+    visibility: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important;
+    background: #ffffff !important;
+  }
+
+  #capture-pdf-target * {
+    visibility: visible !important;
+  }
+
+  /* Prevent containers from clipping the absolute print canvas under the viewport */
+  #root,
+  main,
+  section,
+  .overflow-x-auto {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  .sheet-layout {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100vh !important;
+    padding: 2.2cm 1.8cm !important; /* Elegant resume print margins */
+  }
+
+  /* Force anchor text links decoration to be cleaner for hard copies */
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+
+  a::after {
+    content: "" !important;
+  }
+}
+
+/* ==========================================
+   HIGH-IMPACT BOLD TYPOGRAPHY FORM OVERRIDES
+   ========================================== */
+
+/* Outer structure of left-side section accordions */
+div[id^="section-"] {
+  background-color: #121212 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+div[id^="section-"]:hover {
+  border-color: rgba(212, 255, 0, 0.4) !important;
+}
+
+/* Accordion header toggle bars */
+div[id^="section-"] button[id^="accordion-toggle-"] {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.01em;
+  padding: 18px 20px !important;
+  text-transform: uppercase;
+  border-radius: 0px !important;
+}
+
+div[id^="section-"] button[id^="accordion-toggle-"]:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Icons Box inside forms and buttons */
+div[id^="section-"] button[id^="accordion-toggle-"] span.p-2 {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+  border-radius: 0px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+div[id^="section-"]:focus-within button[id^="accordion-toggle-"] span.p-2 {
+  background-color: #D4FF00 !important;
+  color: #000000 !important;
+  border-color: #D4FF00 !important;
+}
+
+/* Typography styles inside accordions */
+div[id^="section-"] h4 {
+  font-weight: 900 !important;
+  font-size: 0.825rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #ffffff !important;
+}
+
+div[id^="section-"] p.text-xs.text-slate-400,
+div[id^="section-"] p.text-xs.text-slate-500 {
+  font-size: 10px !important;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  margin-top: 2px !important;
+}
+
+/* Chevron icons adjustments */
+div[id^="section-"] svg.text-slate-400 {
+  color: #ffffff !important;
+}
+
+/* Inputs, select fields, and text areas inside form */
+div[id^="section-"] input[type="text"],
+div[id^="section-"] input[type="email"],
+div[id^="section-"] input[type="tel"],
+div[id^="section-"] input[type="url"],
+div[id^="section-"] input[type="date"],
+div[id^="section-"] textarea,
+div[id^="section-"] select {
+  background-color: #0A0A0A !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-radius: 0px !important;
+  padding: 10px 12px !important;
+  font-size: 0.75rem !important;
+  width: 100% !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: all 0.15s ease-in-out !important;
+}
+
+div[id^="section-"] input:focus,
+div[id^="section-"] textarea:focus,
+div[id^="section-"] select:focus {
+  border-color: #D4FF00 !important;
+  background-color: #0f0f0f !important;
+}
+
+/* Input labels */
+div[id^="section-"] label {
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", monospace !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+}
+
+/* Inner block containers on expand */
+div[id^="section-"] div.p-4.border-t,
+div[id^="section-"] div.p-5.border-t,
+div[id^="section-"] div.p-4.border-t.bg-slate-50\/50,
+div[id^="section-"] div.p-4.border-t.bg-slate-50\/40 {
+  background-color: #0A0A0A !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Bullet achievements list blocks */
+div[id^="section-"] div.bg-white\/50,
+div[id^="section-"] div.bg-slate-50\/50,
+div[id^="section-"] div.bg-slate-100 {
+  background-color: #121212 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Dashed creation buttons */
+div[id^="section-"] button.border-dashed {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  border-radius: 0px !important;
+  font-weight: bold !important;
+  transition: all 0.15s ease !important;
+}
+
+div[id^="section-"] button.border-dashed:hover {
+  background-color: rgba(212, 255, 0, 0.05) !important;
+  border-color: #D4FF00 !important;
+  color: #D4FF00 !important;
+}
+
+/* Specific red actions inside form (e.g. Delete/Trash action) */
+div[id^="section-"] button.text-red-650,
+div[id^="section-"] button.text-red-600 {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  color: #ef4444 !important;
+  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+  border-radius: 0px !important;
+  transition: all 0.15s ease !important;
+}
+
+div[id^="section-"] button.text-red-650:hover,
+div[id^="section-"] button.text-red-600:hover {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
+/* Active buttons inside sections block */
+div[id^="section-"] button:not([id^="accordion-toggle-"]) {
+  border-radius: 0px !important;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", monospace !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+  letter-spacing: 0.02em !important;
+}

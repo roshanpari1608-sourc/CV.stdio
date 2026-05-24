@@ -1,0 +1,6 @@
+{
+  "name": "Resume and CV Builder",
+  "description": "An interactive, AI-powered Resume and CV preparation platform tailored for students and professional job seekers, offering real-time PDF layouts and AI-assisted descriptions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
