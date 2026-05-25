@@ -96,21 +96,31 @@ export default function ResumePreview({ cvData, settings, onUpdateSettings }: Re
       const pdf = new jsPDF("p", "mm", "a4");
       const imgWidth = 210; // A4 standard width in mm
       const pageHeight = 297; // A4 standard height in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let imgHeight = (canvas.height * imgWidth) / canvas.width;
       
-      let heightLeft = imgHeight;
-      let position = 0;
+      // Professional resumes are strictly designed to be exactly 1 page.
+      // To prevent an accidental 2nd page with only a tiny sliver of content due to padding,
+      // if the computed height is within single-page tolerance, we auto-fit/scale it to exactly 1 A4 page.
+      const maxSinglePageHeight = 315; // Any height up to ~6% over a single A4 page gets styled/scaled gracefully into 1 page
+      
+      if (imgHeight <= maxSinglePageHeight) {
+        imgHeight = pageHeight;
+        pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight);
+      } else {
+        let heightLeft = imgHeight;
+        let position = 0;
 
-      // Draw standard first page
-      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      // Handle pagination seamlessly
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
+        // Draw standard first page
         pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
+
+        // Handle pagination seamlessly
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
       }
 
       const firstName = cvData.personalInfo.firstName || "Resume";
@@ -695,7 +705,11 @@ export default function ResumePreview({ cvData, settings, onUpdateSettings }: Re
           <div 
             id="resume-printable-sheet"
             className={`bg-white text-black rounded-none shadow-[0_45px_100px_-20px_rgba(0,0,0,0.65)] select-text transition-all duration-300 w-full mx-auto md:max-w-[760px] min-h-[1050px] sheet-layout relative ${fontClass} ${spacingClasses.mrg}`}
-            style={{ letterSpacing: "-0.015em" }}
+            style={{ 
+              letterSpacing: "-0.015em",
+              ["--print-padding-y" as any]: spacing === "compact" ? "0.8cm" : spacing === "normal" ? "1.3cm" : "1.8cm",
+              ["--print-padding-x" as any]: spacing === "compact" ? "0.8cm" : spacing === "normal" ? "1.3cm" : "1.6cm",
+            }}
           >
           {/* Aesthetic left side anchor accent bar matching the master design */}
           <div className="absolute top-0 left-0 w-2.5 h-full print:hidden" style={{ backgroundColor: primaryColor || "#000000" }}></div>

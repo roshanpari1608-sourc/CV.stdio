@@ -113,10 +113,15 @@ body {
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 100vh !important;
-    padding: 2.2cm 1.8cm !important; /* Elegant resume print margins */
+    width: 210mm !important;
+    height: 297mm !important;
+    max-height: 297mm !important;
+    min-height: 297mm !important;
+    padding: var(--print-padding-y, 1.4cm) var(--print-padding-x, 1.4cm) !important; /* Dynamic elegant print margins to avoid empty second page */
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   /* Force anchor text links decoration to be cleaner for hard copies */
