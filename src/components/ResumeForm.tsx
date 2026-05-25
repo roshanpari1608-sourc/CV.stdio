@@ -559,8 +559,12 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-4">
                   
                   {/* PROFILE PICTURE DRAG / UPLOAD UTILITY */}
-                  <div className="bg-white p-5 border border-slate-100 rounded-xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]">
-                    <div className="relative group w-20 h-20 rounded-xl bg-slate-50 border-2 border-dashed border-slate-200 hover:border-indigo-300 hover:bg-slate-50/50 transition duration-200 flex items-center justify-center overflow-hidden shrink-0 shadow-inner">
+                  <div 
+                    id="personal-image-card"
+                    className="p-5 border border-slate-800 rounded-xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
+                    style={{ backgroundColor: "#000000" }}
+                  >
+                    <div className="relative group w-20 h-20 rounded-xl bg-neutral-900 border-2 border-dashed border-neutral-800 hover:border-indigo-500 hover:bg-neutral-900/50 transition duration-200 flex items-center justify-center overflow-hidden shrink-0 shadow-inner">
                       {cvData.personalInfo.photoUrl ? (
                         <>
                           <img 
@@ -582,24 +586,24 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         </>
                       ) : (
                         <div className="text-slate-400 flex flex-col items-center">
-                          <User className="w-8 h-8 stroke-[1.25] text-slate-350" />
+                          <User className="w-8 h-8 stroke-[1.25] text-slate-500" />
                         </div>
                       )}
                     </div>
                     
                     <div className="flex-1 w-full space-y-3.5 text-center sm:text-left">
                       <div>
-                        <h5 className="text-[14px] font-extrabold text-slate-800 leading-snug">Profile headshot</h5>
-                        <p className="text-[11px] text-slate-400 font-medium mt-0.5">Include an elegant, high-contrast display headshot on your resume.</p>
+                        <h5 className="text-[14px] font-extrabold text-white leading-snug" style={{ color: "#ffffff" }}>Profile headshot</h5>
+                        <p className="text-[11px] font-medium mt-0.5" style={{ color: "#989898" }}>Include an elegant, high-contrast display headshot on your resume.</p>
                       </div>
                       
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                         {/* Interactive File Picker */}
                         <label 
-                          style={{ backgroundColor: "#d4ff00" }}
-                          className="cursor-pointer inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold text-slate-800 active:scale-[0.98] border border-slate-200 rounded-lg transition duration-200 shadow-xs shrink-0"
+                          style={{ backgroundColor: "#d4ff00", color: "#000000", borderColor: "#926767" }}
+                          className="cursor-pointer inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold active:scale-[0.98] border rounded-lg transition duration-200 shadow-xs shrink-0"
                         >
-                          <Upload className="w-3.5 h-3.5" />
+                          <Upload className="w-3.5 h-3.5" style={{ color: "#000000" }} />
                           <span style={{ color: "#ff0000" }}>
                             Upload File
                           </span>
@@ -1556,35 +1560,40 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               >
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-4">
                   {cvData.skills.map((skCategory, idx) => (
-                    <div id={`skill-card-${skCategory.id}`} key={skCategory.id} className="p-4 bg-white border border-slate-100 rounded-xl relative space-y-3 shadow-xs">
+                    <div 
+                      id={`skill-card-${skCategory.id}`} 
+                      key={skCategory.id} 
+                      className="p-5 bg-black text-white border border-slate-800 rounded-xl relative space-y-4 shadow-md transition-all duration-200"
+                      style={{ backgroundColor: "#000000" }}
+                    >
                       <button
                         id={`delete-skill-${skCategory.id}`}
                         type="button"
                         onClick={() => removeSkillCategory(skCategory.id)}
-                        className="absolute top-4 right-4 text-slate-350 hover:text-red-500 p-1 transition"
+                        className="absolute top-4 right-4 text-slate-400 hover:text-red-400 p-1 transition"
                         title="Delete Skill Group"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="md:col-span-1">
-                          <label className="block text-xs font-medium text-slate-405 mb-0.5">Focus Category</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Focus Category</label>
                           <input
                             id={`input-skill-cat-${skCategory.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500 font-semibold text-slate-705"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition font-semibold"
                             placeholder="E.g., Back-End Languages"
                             value={skCategory.category}
                             onChange={(e) => updateSkillCategory(skCategory.id, "category", e.target.value)}
                           />
                         </div>
                         <div className="md:col-span-2">
-                          <label className="block text-xs font-medium text-slate-405 mb-0.5">Skills list (Separated by commas)</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Skills list (Separated by commas)</label>
                           <input
                             id={`input-skill-list-${skCategory.id}`}
                             type="text"
-                            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="React, Redux, Tailwind, Jest"
                             value={skCategory.skills}
                             onChange={(e) => updateSkillCategory(skCategory.id, "skills", e.target.value)}
@@ -1663,13 +1672,18 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               >
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-3">
                   {cvData.languages.map((lang, idx) => (
-                    <div id={`lang-card-${lang.id}`} key={lang.id} className="flex items-center gap-4 bg-white p-3 border border-slate-100 rounded-lg relative shadow-xs">
-                      <div className="flex-1 grid grid-cols-2 gap-3 pr-8">
+                    <div 
+                      id={`lang-card-${lang.id}`} 
+                      key={lang.id} 
+                      className="flex items-center gap-4 text-white border border-slate-800 rounded-xl relative shadow-md transition-all duration-200 p-5"
+                      style={{ backgroundColor: "#000000" }}
+                    >
+                      <div className="flex-1 grid grid-cols-2 gap-4 pr-8">
                         <div>
                           <input
                             id={`input-lang-name-${lang.id}`}
                             type="text"
-                            className="w-full px-2 py-1 text-xs border border-slate-200 rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="E.g., English, French"
                             value={lang.name}
                             onChange={(e) => updateLanguage(lang.id, "name", e.target.value)}
@@ -1678,15 +1692,15 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         <div>
                           <select
                             id={`select-lang-proficiency-${lang.id}`}
-                            className="w-full px-2 py-1 text-xs border border-slate-200 rounded-lg bg-white"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             value={lang.proficiency}
                             onChange={(e) => updateLanguage(lang.id, "proficiency", e.target.value)}
                           >
-                            <option value="Native">Native Bilingual</option>
-                            <option value="Fluent">Fluent Speaker</option>
-                            <option value="Professional">Professional Competency</option>
-                            <option value="Conversational">Conversational Speaker</option>
-                            <option value="Conversational / Basic">Basic / Elementary</option>
+                            <option value="Native" className="bg-neutral-900">Native Bilingual</option>
+                            <option value="Fluent" className="bg-neutral-900">Fluent Speaker</option>
+                            <option value="Professional" className="bg-neutral-900">Professional Competency</option>
+                            <option value="Conversational" className="bg-neutral-900">Conversational Speaker</option>
+                            <option value="Conversational / Basic" className="bg-neutral-900">Basic / Elementary</option>
                           </select>
                         </div>
                       </div>
@@ -1694,7 +1708,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         id={`delete-lang-${lang.id}`}
                         type="button"
                         onClick={() => removeLanguage(lang.id)}
-                        className="absolute right-3 text-slate-350 hover:text-red-500 p-1"
+                        className="absolute right-3 text-slate-400 hover:text-red-400 p-1 transition"
                         title="Remove Language"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -1770,12 +1784,17 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               >
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-3">
                   {cvData.certifications.map((cert, idx) => (
-                    <div id={`cert-card-${cert.id}`} key={cert.id} className="p-3 bg-white border border-slate-100 rounded-lg relative shadow-xs grid grid-cols-1 md:grid-cols-3 gap-3 pr-8">
+                    <div 
+                      id={`cert-card-${cert.id}`} 
+                      key={cert.id} 
+                      className="p-5 bg-black text-white border border-slate-800 rounded-xl relative shadow-md transition-all duration-200 grid grid-cols-1 md:grid-cols-3 gap-4 pr-8"
+                      style={{ backgroundColor: "#000000" }}
+                    >
                       <div>
                         <input
                           id={`input-cert-name-${cert.id}`}
                           type="text"
-                          className="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-lg"
+                          className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                           placeholder="AWS Solutions Associate"
                           value={cert.name}
                           onChange={(e) => updateCertification(cert.id, "name", e.target.value)}
@@ -1785,7 +1804,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         <input
                           id={`input-cert-issuer-${cert.id}`}
                           type="text"
-                          className="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-lg"
+                          className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                           placeholder="Amazon Web Services"
                           value={cert.issuer}
                           onChange={(e) => updateCertification(cert.id, "issuer", e.target.value)}
@@ -1795,7 +1814,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         <input
                           id={`input-cert-year-${cert.id}`}
                           type="text"
-                          className="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-lg"
+                          className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                           placeholder="E.g., 2025"
                           value={cert.year}
                           onChange={(e) => updateCertification(cert.id, "year", e.target.value)}
@@ -1805,7 +1824,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         id={`delete-cert-${cert.id}`}
                         type="button"
                         onClick={() => removeCertification(cert.id)}
-                        className="absolute right-2 top-3 text-slate-350 hover:text-red-500 p-1"
+                        className="absolute right-3 top-4 text-slate-400 hover:text-red-400 p-1 transition"
                         title="Remove Certification"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -1881,36 +1900,41 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
               >
                 <div className="p-4 border-t border-slate-50 bg-slate-50/50 space-y-3">
                   {(cvData.achievements || []).map((ach) => (
-                    <div id={`ach-card-${ach.id}`} key={ach.id} className="p-3 bg-white border border-slate-100 rounded-lg relative shadow-xs grid grid-cols-1 gap-3 pr-8">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div 
+                      id={`ach-card-${ach.id}`} 
+                      key={ach.id} 
+                      className="p-5 bg-black text-white border border-slate-800 rounded-xl relative space-y-4 shadow-md transition-all duration-200 grid grid-cols-1 gap-3 pr-8"
+                      style={{ backgroundColor: "#000000" }}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Award & Activity Title</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Award & Activity Title</label>
                           <input
                             id={`input-ach-title-${ach.id}`}
                             type="text"
-                            className="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="E.g., Winner (1st Rank) - DevHacks"
                             value={ach.title}
                             onChange={(e) => updateAchievement(ach.id, "title", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Organization / Issuer</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Organization / Issuer</label>
                           <input
                             id={`input-ach-issuer-${ach.id}`}
                             type="text"
-                            className="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="E.g., ACM Student Chapter"
                             value={ach.issuer}
                             onChange={(e) => updateAchievement(ach.id, "issuer", e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Year / Timing</label>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1">Year / Timing</label>
                           <input
                             id={`input-ach-year-${ach.id}`}
                             type="text"
-                            className="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                             placeholder="E.g., 2024 / Present"
                             value={ach.year}
                             onChange={(e) => updateAchievement(ach.id, "year", e.target.value)}
@@ -1918,11 +1942,11 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         </div>
                       </div>
                       <div>
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Brief Description / Key Impact</label>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Brief Description / Key Impact</label>
                         <textarea
                           id={`input-ach-desc-${ach.id}`}
                           rows={2}
-                          className="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-lg"
+                          className="w-full px-3 py-2 text-sm bg-neutral-900 border border-neutral-800 text-white rounded-lg focus:ring-2 focus:ring-indigo-505/20 focus:border-indigo-400 transition"
                           placeholder="Briefly state features, leadership contributions, or volunteering impact..."
                           value={ach.description}
                           onChange={(e) => updateAchievement(ach.id, "description", e.target.value)}
@@ -1932,7 +1956,7 @@ export default function ResumeForm({ cvData, onChange, onSelectPrefill }: Resume
                         id={`delete-ach-${ach.id}`}
                         type="button"
                         onClick={() => removeAchievement(ach.id)}
-                        className="absolute right-2 top-3 text-slate-350 hover:text-red-500 p-1"
+                        className="absolute right-3 top-4 text-slate-400 hover:text-red-400 p-1 transition"
                         title="Remove Achievement"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
